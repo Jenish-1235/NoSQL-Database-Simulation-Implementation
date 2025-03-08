@@ -1,0 +1,3 @@
+"""
+Class responsible as service for handling all the NoSQL CRUD Tasks...
+"""
