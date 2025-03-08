@@ -1,0 +1,3 @@
+"""
+Schema for lookup table
+"""
