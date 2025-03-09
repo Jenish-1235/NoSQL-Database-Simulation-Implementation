@@ -14,9 +14,7 @@ class memTableManager:
     def reconstructMemTable(self):
         self.wal_file = self.file_io_manager.openWAL(self.wal_file)
         reconstructed_mem_table = {}
-
         for record in self.wal_file:
-
             if record != "":
                 if record == "\n":
                     continue
