@@ -56,4 +56,11 @@ class DatabaseService:
         await self.dump_memtable_to_sstable()
 
     async def read_memTable(self, key):
-        return self.memTable[key]
+        if(key in self.memTable):
+            return self.memTable[key]
+        else:
+            ss_tables = self.sstable_manager.read_sstables(self.sstable_manager.retrieve_last_id_from_id_file())
+            reversed_ss_tables = list(reversed(ss_tables))
+            for reversed_ss_table in reversed_ss_tables:
+                if reversed_ss_table.data.get(key) is not None:
+                    return reversed_ss_table.data[key]
