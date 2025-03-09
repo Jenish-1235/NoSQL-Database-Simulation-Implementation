@@ -1,12 +1,15 @@
 """
 Abstraction to quickly handle file I/O throughout the database service
 """
+from schemas.sorted_set_table import SortedSetTable
+
 
 class FileIOManager:
     def __init__(self):
         self.wal_file = None
         self.ssTable_file = None
         self.lookup_map_file = None
+        self.openIdFile = None
 
     def openWAL(self, wal_file):
         self.wal_file = wal_file
@@ -28,7 +31,19 @@ class FileIOManager:
 
     def openSS(self, ssTable_file):
         self.ssTable_file = ssTable_file
-        ssTable_file = open(ssTable_file, "a+")
+        ssTable_file = open(ssTable_file, "r+")
+        return ssTable_file
+
+    def writeSS(self, sstable_file, sstable: SortedSetTable):
+        self.ssTable_file = sstable_file
+        ssTable_file = open(self.ssTable_file, "a+")
+        ssTable_file.write("\n" + str(sstable))
+        ssTable_file.close()
+
+    def openIDFile(self, openIdFile):
+        self.openIdFile = openIdFile
+        openIdFile = open(openIdFile, "r+")
+        return openIdFile
 
     def closeSS(self):
         if self.ssTable_file is not None:
