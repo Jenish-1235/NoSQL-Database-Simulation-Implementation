@@ -45,6 +45,12 @@ class FileIOManager:
         openIdFile = open(openIdFile, "r+")
         return openIdFile
 
+    def writeNewSSId(self, sstable_id_file, new_id):
+        self.openIdFile = sstable_id_file
+        openIdFile = open(sstable_id_file, "a+")
+        openIdFile.write("\n" + str(new_id))
+        openIdFile.close()
+
     def closeSS(self):
         if self.ssTable_file is not None:
             self.ssTable_file.close()

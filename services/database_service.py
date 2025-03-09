@@ -20,15 +20,13 @@ class DatabaseService:
         if size_in_mb > 1:
             prevId = self.sstable_manager.retrieve_last_id_from_id_file()
             if prevId is None:
-                prevId = "ID001"
+                prevId = "ID100"
             id = "ID" + str(int(prevId[2:]) + 1)
             sstable_new = SortedSetTable(SSTableId=id, nextSSTableId=prevId, data=self.memTable, timestamp=str(datetime.now()))
             self.memTable = {}
             self.sstable_manager.write_sst(sstable_new)
-
-
+            self.sstable_manager.write_new_id_in_id_file(id)
         else:
-            print(sys.getsizeof(self.memTable))
             return
 
     def __init__(self):

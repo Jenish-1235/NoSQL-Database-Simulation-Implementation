@@ -32,3 +32,7 @@ class SSTableManager:
         if len(id_list) == 0:
             return None
         return id_list[len(id_list) - 1]
+
+    def write_new_id_in_id_file(self, new_id):
+        self.file_io_manager.writeNewSSId(self.sst_id_file, new_id)
+        return "Successfully updated SSTID List"
