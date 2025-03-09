@@ -2,16 +2,22 @@
 Abstraction to quickly handle file I/O throughout the database service
 """
 
-class FileIoManager:
-    def __init__(self, db):
+class FileIOManager:
+    def __init__(self):
         self.wal_file = None
         self.ssTable_file = None
         self.lookup_map_file = None
-        self.db = db
 
     def openWAL(self, wal_file):
         self.wal_file = wal_file
+        wal_file = open(wal_file, "r+")
+        return wal_file
+
+    def writeWAL(self, wal_file, wal_record):
+        self.wal_file = wal_file
         wal_file = open(wal_file, "a+")
+        wal_file.write(wal_record)
+        wal_file.close()
 
     def closeWAL(self):
         if self.wal_file is not None:
@@ -41,6 +47,3 @@ class FileIoManager:
             self.lookup_map_file = None
         else:
             print("No lookupMap file opened")
-
-
-
