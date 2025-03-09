@@ -3,10 +3,19 @@ Class responsible as service for handling all the NoSQL CRUD Tasks...
 """
 from typing import Dict
 
+from core.memTable_manager import memTableManager
+
 
 class DatabaseService:
     def __init__(self):
-        self.memTable : Dict =  {}
+        self.memTableManager = memTableManager()
+        self.wals : Dict =  memTableManager.reconstructMemTable(self.memTableManager)
+        self.memTable = {}
+        for key in self.wals.keys():
+            if key == "w":
+                data = self.wals[key]
+                self.memTable[data["key"]] = data["value"]
+
 
     async def write_memTable(self, key, value) -> None:
         keys = list(self.memTable.keys())

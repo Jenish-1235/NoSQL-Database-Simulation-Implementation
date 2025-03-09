@@ -11,6 +11,7 @@ class FileIOManager:
     def openWAL(self, wal_file):
         self.wal_file = wal_file
         wal_file = open(wal_file, "r+")
+        return wal_file
 
     def writeWAL(self, wal_file, wal_record):
         self.wal_file = wal_file
