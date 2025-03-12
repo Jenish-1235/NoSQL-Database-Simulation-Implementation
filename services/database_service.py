@@ -38,7 +38,7 @@ class DatabaseService:
         self.wals : Dict =  memTableManager.reconstructMemTable(self.memTableManager)
         self.memTable = {}
         for key in self.wals.keys():
-            if key == "w":
+            if key[0] == "w":
                 data = self.wals[key]
                 self.memTable[data["key"]] = data["value"]
 

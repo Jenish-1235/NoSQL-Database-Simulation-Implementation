@@ -44,7 +44,7 @@ class SSTableManager:
         for line in data:
             if line != "":
                 current_sst_table = self.parse_ss_table(line)
-                if current_sst_table != None:
+                if current_sst_table is not None:
                     ss_tables.append(current_sst_table)
         return ss_tables
 
