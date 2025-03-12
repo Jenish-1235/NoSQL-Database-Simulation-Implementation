@@ -44,3 +44,6 @@ class memTableManager:
                 return {}
         print(reconstructed_mem_table)
         return reconstructed_mem_table
+
+memTableManager = memTableManager()
+memTableManager.reconstructMemTable()
